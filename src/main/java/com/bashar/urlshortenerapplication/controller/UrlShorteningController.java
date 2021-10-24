@@ -36,7 +36,6 @@ public class UrlShorteningController {
 		if (urlToRet != null) {
 			UrlResponseDto urlResponseDto = new UrlResponseDto();
 			urlResponseDto.setOriginalUrl(urlToRet.getOriginalUrl());
-			urlResponseDto.setExpirationDate(urlToRet.getExpirationDate());
 			urlResponseDto.setShortUrl(urlToRet.getShortLink());
 
 			return new ResponseEntity<UrlResponseDto>(urlResponseDto, HttpStatus.OK);
@@ -67,15 +66,6 @@ public class UrlShorteningController {
 			urlErrorResponseDto.setStatus("400");
 			return new ResponseEntity<UrlErrorResponseDto>(urlErrorResponseDto, HttpStatus.OK);
 		}
-
-		/*
-		 * if (urlToRet.getExpirationDate().isBefore(LocalDateTime.now())) { //
-		 * urlService.deleteShortLink(urlToRet); UrlErrorResponseDto urlErrorResponseDto
-		 * = new UrlErrorResponseDto(); urlErrorResponseDto.
-		 * setError("Url Expired. Please try generating a fresh one.");
-		 * urlErrorResponseDto.setStatus("200"); return new
-		 * ResponseEntity<UrlErrorResponseDto>(urlErrorResponseDto, HttpStatus.OK); }
-		 */
 
 		response.sendRedirect(urlToRet.getOriginalUrl());
 		return null;

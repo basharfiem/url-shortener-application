@@ -30,7 +30,6 @@ public class UrlServiceImpl implements UrlService{
 			urlToPersist.setCreatedDate(LocalDateTime.now());
 			urlToPersist.setOriginalUrl(urldto.getUrl());
 			urlToPersist.setShortLink(encodedUrl);
-			//urlToPersist.setExpirationDate(getExpirationDate(urldto.getExpirationDate(),urlToPersist.getCreatedDate()));
 
 			Url urlToRet = persistShorLink(urlToPersist);
 			
@@ -39,16 +38,6 @@ public class UrlServiceImpl implements UrlService{
 			return null;
 		}
 		return null;
-	}
-
-	private LocalDateTime getExpirationDate(String expirationDate, LocalDateTime createdDate) {
-		
-		if(StringUtils.isBlank(expirationDate))
-		{
-			return createdDate.plusSeconds(120);
-		}
-		//LocalDateTime expirationDateToRet = LocalDateTime.parse(expirationDate);
-		return LocalDateTime.parse(expirationDate);
 	}
 
 	private String encodedUrl(String url) {
@@ -61,7 +50,6 @@ public class UrlServiceImpl implements UrlService{
 	@Override
 	public Url persistShorLink(Url url) {
 		
-		//Url urlToRet = urlRepository.save(url);
 		return urlRepository.save(url);
 	}
 
@@ -80,9 +68,9 @@ public class UrlServiceImpl implements UrlService{
 	@Override
 	public java.util.List<Url> getAllExistingUrl() {
 
-		java.util.List<Url> urlList=urlRepository.findAll();
-		
-		if(urlList != null)
+		java.util.List<Url> urlList = urlRepository.findAll();
+
+		if (urlList != null)
 			return urlList;
 		return null;
 	}
